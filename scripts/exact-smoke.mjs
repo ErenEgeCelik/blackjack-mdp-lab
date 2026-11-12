@@ -1,0 +1,10 @@
+﻿import { chromium } from '@playwright/test';
+const browser = await chromium.launch({ channel: 'msedge', headless: true });
+const page = await browser.newPage();
+await page.goto('http://127.0.0.1:5173');
+await page.getByRole('button', { name: 'Decision explorer' }).click();
+await page.getByLabel('Computation model').selectOption('exact');
+await page.getByRole('button', { name: 'Evaluate state' }).click();
+await page.waitForTimeout(1500);
+console.log(await page.locator('main').innerText());
+await browser.close();

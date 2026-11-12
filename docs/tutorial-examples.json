@@ -1,0 +1,252 @@
+{
+  "description": "Reproducible engine values for the Turkish tutorial. EV in initial stake units. Exact and approximate models explicitly separated.",
+  "scenarios": [
+    {
+      "id": "six-deck-16-v-10",
+      "cards": [
+        10,
+        6
+      ],
+      "up": 10,
+      "counts": [
+        24,
+        24,
+        24,
+        24,
+        24,
+        23,
+        24,
+        24,
+        24,
+        94
+      ],
+      "rules": {
+        "hitSoft17": false,
+        "blackjackPayout": 1.5,
+        "doubleAfterSplit": true
+      },
+      "result": {
+        "actions": {
+          "stand": -0.5772710718629113,
+          "hit": -0.5706860203666626,
+          "double": -1.1413720407333252
+        },
+        "best": "hit",
+        "dealer": [
+          0.11264541521030993,
+          0.1123940563012076,
+          0.1123745332791414,
+          0.3388907107343257,
+          0.03466091749384962,
+          0.2113644640685443,
+          0.07766990291262135
+        ],
+        "bustProbability": 0.6116504854368932,
+        "nodes": 30,
+        "model": "Frozen observed composition, with replacement, ENHC (finite-shoe approximation)"
+      }
+    },
+    {
+      "id": "six-deck-11-v-6",
+      "cards": [
+        5,
+        6
+      ],
+      "up": 6,
+      "counts": [
+        24,
+        24,
+        24,
+        24,
+        23,
+        22,
+        24,
+        24,
+        24,
+        96
+      ],
+      "rules": {
+        "hitSoft17": false,
+        "blackjackPayout": 1.5,
+        "doubleAfterSplit": true
+      },
+      "result": {
+        "actions": {
+          "stand": -0.15033456822154523,
+          "hit": 0.3405271679241979,
+          "double": 0.6810543358483958
+        },
+        "best": "double",
+        "dealer": [
+          0.16597597735109068,
+          0.10629491442422892,
+          0.10618007279388907,
+          0.10147131152839904,
+          0.09524500801316481,
+          0.42483271588922733,
+          0
+        ],
+        "bustProbability": 0,
+        "nodes": 43,
+        "model": "Frozen observed composition, with replacement, ENHC (finite-shoe approximation)"
+      }
+    },
+    {
+      "id": "six-deck-soft18-v-9",
+      "cards": [
+        1,
+        7
+      ],
+      "up": 9,
+      "counts": [
+        23,
+        24,
+        24,
+        24,
+        24,
+        24,
+        23,
+        24,
+        23,
+        96
+      ],
+      "rules": {
+        "hitSoft17": false,
+        "blackjackPayout": 1.5,
+        "doubleAfterSplit": true
+      },
+      "result": {
+        "actions": {
+          "stand": -0.18310269505639626,
+          "hit": -0.09947982262921573,
+          "double": -0.2876939621566015
+        },
+        "best": "hit",
+        "dealer": [
+          0.12092930478619421,
+          0.11779517963256045,
+          0.3540224247623036,
+          0.11750419551739816,
+          0.06112713743221609,
+          0.2286217578693274,
+          0
+        ],
+        "bustProbability": 0,
+        "nodes": 40,
+        "model": "Frozen observed composition, with replacement, ENHC (finite-shoe approximation)"
+      }
+    },
+    {
+      "id": "six-deck-88-v-6",
+      "cards": [
+        8,
+        8
+      ],
+      "up": 6,
+      "counts": [
+        24,
+        24,
+        24,
+        24,
+        24,
+        23,
+        24,
+        22,
+        24,
+        96
+      ],
+      "rules": {
+        "hitSoft17": false,
+        "blackjackPayout": 1.5,
+        "doubleAfterSplit": true
+      },
+      "result": {
+        "actions": {
+          "stand": -0.1570333591414325,
+          "hit": -0.4257376848112824,
+          "double": -0.8514753696225648,
+          "split": 0.3273518141235189
+        },
+        "best": "split",
+        "dealer": [
+          0.16629273641145434,
+          0.10664850710013023,
+          0.10657385947583327,
+          0.10187452619771784,
+          0.09712705038558049,
+          0.4214833204292837,
+          0
+        ],
+        "bustProbability": 0.6116504854368932,
+        "nodes": 48,
+        "model": "Frozen observed composition, with replacement, ENHC (finite-shoe approximation)"
+      }
+    }
+  ],
+  "toy": {
+    "cards": [
+      10,
+      6
+    ],
+    "up": 10,
+    "counts": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      4
+    ],
+    "rules": {
+      "hitSoft17": false,
+      "blackjackPayout": 1.5,
+      "doubleAfterSplit": true
+    },
+    "exact": {
+      "actions": {
+        "stand": -0.5592074592074593,
+        "hit": -0.5780238280238281,
+        "double": -1.1560476560476562
+      },
+      "best": "stand",
+      "dealer": [
+        0.11130536130536131,
+        0.1048951048951049,
+        0.11305361305361306,
+        0.3370629370629371,
+        0.03636363636363636,
+        0.22039627039627038,
+        0.07692307692307693
+      ],
+      "bustProbability": 0.6153846153846154,
+      "nodes": 537,
+      "model": "Exact finite shoe, non-split, ENHC"
+    },
+    "frozen": {
+      "actions": {
+        "stand": -0.5757818467646016,
+        "hit": -0.5752243196440803,
+        "double": -1.1504486392881605
+      },
+      "best": "hit",
+      "dealer": [
+        0.11142433852261402,
+        0.11142433852261402,
+        0.11142433852261402,
+        0.3421935692918448,
+        0.03450126159953709,
+        0.21210907661769923,
+        0.07692307692307693
+      ],
+      "bustProbability": 0.6153846153846154,
+      "nodes": 30,
+      "model": "Frozen observed composition, with replacement, ENHC (finite-shoe approximation)"
+    }
+  },
+  "naturalOneDeck": 0.048265460030165915,
+  "naturalSixDeck": 0.04748948800395746
+}

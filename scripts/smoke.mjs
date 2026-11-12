@@ -1,0 +1,48 @@
+﻿import {chromium,expect} from '@playwright/test';
+import {mkdir} from 'node:fs/promises';
+await mkdir('artifacts',{recursive:true});
+const browser=await chromium.launch({channel:'msedge',headless:true});
+try {
+ const page=await browser.newPage({viewport:{width:1440,height:1050},deviceScaleFactor:1});
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('http://127.0.0.1:5173/');
+ await page.getByRole('button',{name:'Deal a hand',exact:true}).click();
+ await expect(page.locator('.hand-total strong')).toContainText('18');
+ await expect(page.locator('canvas')).toHaveCount(1);
+ await expect(page.locator('.action-row.best')).toContainText('stand');
+ await page.waitForTimeout(400);
+ await page.screenshot({path:'artifacts/table.png',fullPage:true});
+ await page.locator('.action-row.best').click();
+ await expect(page.getByRole('button',{name:'Deal next hand'})).toBeEnabled();
+ await expect(page.locator('.table-status')).toContainText('Round profit');
+ await page.getByRole('button',{name:'Deal next hand'}).click();
+ await page.getByRole('button',{name:'Decision explorer'}).click();
+ await page.getByRole('button',{name:'Evaluate state'}).click();
+ await expect(page.getByText('Model optimum: hit')).toBeVisible();
+ await page.locator('.tree-branches button').first().click();
+ await expect(page.locator('.transition-detail')).toContainText('Next player total: 17');
+ await page.screenshot({path:'artifacts/solver.png',fullPage:true});
+ await page.getByLabel('Computation model').selectOption('exact');
+ await page.getByRole('button',{name:'Evaluate state'}).click();
+ await expect(page.getByText('Model optimum: stand')).toBeVisible();
+ await expect(page.getByText(/Exact finite shoe, non-split/)).toBeVisible();
+ await page.getByLabel('Undealt counts:').fill('0,0,0,0,0,0,0,0,0,0');
+ await page.getByRole('button',{name:'Evaluate state'}).click();
+ await expect(page.getByRole('alert')).toContainText('exhausted');
+ await page.getByRole('button',{name:'Monte Carlo lab'}).click();
+ await page.getByLabel('Rounds per session').selectOption('100');
+ await page.getByRole('button',{name:'Run experiment'}).click();
+ await expect(page.getByText('Observed outcomes')).toBeVisible({timeout:60000});
+ await expect(page.locator('.compact')).toContainText('95% session-cluster t interval');
+ const downloadPromise=page.waitForEvent('download');
+ await page.getByRole('button',{name:'Export results & configuration'}).click();
+ const download=await downloadPromise;expect(download.suggestedFilename()).toBe('blackjack-experiment.json');
+ await page.screenshot({path:'artifacts/simulation.png',fullPage:true});
+ await page.setViewportSize({width:390,height:844});
+ await page.getByRole('button',{name:'Live table'}).click();
+ await page.screenshot({path:'artifacts/mobile.png',fullPage:true});
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth)).toBe(false);
+ expect(errors).toEqual([]);
+ console.log('PASS: WebGL, seeded deal, legal settlement, next round, surrogate solver, exact solver, exhaustion error, transition tree, worker simulation, export, mobile layout; no page errors.');
+}finally{await browser.close()}
+
